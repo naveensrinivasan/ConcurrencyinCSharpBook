@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Async.cs" />
     <Compile Include="AsyncProgress.cs" />
     <Compile Include="DownloadStringWithTimeout.cs" />
     <Compile Include="Program.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConcurrencyinCSharpBook
@@ -9,7 +10,8 @@ namespace ConcurrencyinCSharpBook
         {
             // MainAsync().Wait();
             // TimeOutHttp().Wait();
-            Progress().Wait();
+            //Progress().Wait();
+            ProcessAsTheyComplete().Wait();
              Console.Read();
         }
 
@@ -35,6 +37,16 @@ namespace ConcurrencyinCSharpBook
         private static void Progress_ProgressChanged(object sender, int e)
         {
             Console.WriteLine("Progress from async method {0}",e.ToString());
+        }
+
+         static async Task ProcessAsTheyComplete()
+        {
+            var a = Async.DelayAndReturn(2);
+            var b = Async.DelayAndReturn(3);
+            var c = Async.DelayAndReturn(1);
+            var tasks = new[] { a, b, c };
+            var completed = tasks.Select(t => Async.ProcessAsyncResult(t)).ToArray();
+            await Task.WhenAll(completed);
         }
     }
 }
